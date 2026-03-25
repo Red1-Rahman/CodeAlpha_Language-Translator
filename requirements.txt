@@ -3,3 +3,4 @@ uvicorn
 httpx
 python-dotenv
 pydantic-settings
+googletrans==4.0.0-rc1

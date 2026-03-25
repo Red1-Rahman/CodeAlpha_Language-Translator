@@ -1,5 +1,7 @@
 <img width="1448" height="737" alt="image" src="https://github.com/user-attachments/assets/c6f69615-8f55-4f05-b2eb-ea7ccd5aa34e" />
 
+---
+
 A clean, fast translation tool built with FastAPI and vanilla JS. Supports 50+ languages with two translation providers — Azure Translator (primary) and Google Translate (unofficial).
 
 ---
@@ -23,6 +25,8 @@ A clean, fast translation tool built with FastAPI and vanilla JS. Supports 50+ l
 - **Backend** — FastAPI, httpx, pydantic-settings
 - **Frontend** — HTML, CSS, vanilla JS (no frameworks)
 - **Translation** — Azure Cognitive Translator API, googletrans
+
+---
 
 ## Notes
 

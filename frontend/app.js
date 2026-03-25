@@ -89,6 +89,10 @@ swapBtn.addEventListener("click", () => {
         charCount.textContent = `${sourceText.value.length} / 5000`;
         setOutputState(!!outputText.value);
     }
+
+    const rtlLanguages = ["ar", "he", "fa", "ur"];
+    sourceText.dir = rtlLanguages.includes(sourceLang.value) ? "rtl" : "ltr";
+    outputText.dir = rtlLanguages.includes(targetLang.value) ? "rtl" : "ltr";
 });
 
 // ─── Translate ────────────────────────────────────────────────
@@ -142,6 +146,8 @@ async function translate() {
         }
 
         outputText.value = data.translated_text;
+        const rtlLanguages = ["ar", "he", "fa", "ur"];
+        outputText.dir = rtlLanguages.includes(targetLang.value) ? "rtl" : "ltr";
         resultProvider.textContent = data.provider;
         setOutputState(true);
         setStatus("");

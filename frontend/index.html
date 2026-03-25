@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app">
+
+        <header>
+            <h1>Translate <em>anything</em></h1>
+            <div class="header-controls">
+
+                <!-- Theme toggle -->
+                <button id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+                    <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+
+                <!-- Provider pills -->
+                <div class="provider-pills">
+                    <label>
+                        <input type="radio" name="provider" value="azure" checked>
+                        Azure
+                    </label>
+                    <label>
+                        <input type="radio" name="provider" value="google">
+                        Google <span class="unofficial-tag">unofficial</span>
+                    </label>
+                </div>
+
+            </div>
+        </header>
+
+        <!-- Language selector bar -->
+        <div class="lang-bar">
+            <select id="source-lang" aria-label="Source language"></select>
+            <button id="swap-btn" title="Swap languages" aria-label="Swap languages">⇄</button>
+            <select id="target-lang" aria-label="Target language"></select>
+        </div>
+
+        <!-- Translation panels -->
+        <div class="panels">
+
+            <div class="panel">
+                <div class="panel-label">Source</div>
+                <textarea
+                    id="source-text"
+                    placeholder="Enter text to translate…"
+                    maxlength="5000"
+                    aria-label="Source text"
+                    spellcheck="true"
+                ></textarea>
+                <div class="panel-footer">
+                    <span class="char-count" id="char-count">0 / 5000</span>
+                    <button class="icon-btn" id="clear-btn">Clear</button>
+                </div>
+            </div>
+
+            <div class="panel output-panel">
+                <div class="panel-label">Translation</div>
+                <textarea
+                    id="output-text"
+                    placeholder="Translation will appear here…"
+                    readonly
+                    aria-label="Translated text"
+                    aria-live="polite"
+                ></textarea>
+                <div class="panel-footer">
+                    <span class="provider-badge" id="result-provider"></span>
+                    <div class="icon-btns">
+                        <button class="icon-btn" id="copy-btn" disabled aria-label="Copy translation">Copy</button>
+                        <button class="icon-btn" id="tts-btn" disabled aria-label="Speak translation">Speak</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Action row -->
+        <div class="actions">
+            <button id="translate-btn">Translate</button>
+            <span id="status-msg" role="status" aria-live="polite"></span>
+        </div>
+
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

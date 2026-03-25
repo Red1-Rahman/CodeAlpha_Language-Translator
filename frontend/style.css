@@ -1,0 +1,466 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+/* ─── Tokens ─────────────────────────────────────────────── */
+
+:root {
+    --bg:             #f7f5f0;
+    --surface:        #ffffff;
+    --surface-raised: #faf9f6;
+    --border:         #e2ddd6;
+    --border-strong:  #ccc8c0;
+    --text-primary:   #1a1814;
+    --text-secondary: #6b6660;
+    --text-hint:      #a09b96;
+    --accent:         #2a5cff;
+    --accent-light:   #eef1ff;
+    --danger:         #c0392b;
+    --success:        #1a7a4a;
+    --radius:         4px;
+    --radius-lg:      10px;
+    --font-display:   'DM Serif Display', Georgia, serif;
+    --font-body:      'DM Sans', system-ui, sans-serif;
+    --transition:     0.15s ease;
+}
+
+/* Dark theme tokens */
+[data-theme="dark"] {
+    --bg:             #131210;
+    --surface:        #1e1c19;
+    --surface-raised: #242220;
+    --border:         #2e2c28;
+    --border-strong:  #3e3c38;
+    --text-primary:   #f0ece4;
+    --text-secondary: #8c8780;
+    --text-hint:      #5a5750;
+    --accent:         #4d7bff;
+    --accent-light:   #1a2340;
+    --danger:         #e05c4a;
+    --success:        #3db876;
+}
+
+/* System preference fallback (when no manual override) */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) {
+        --bg:             #131210;
+        --surface:        #1e1c19;
+        --surface-raised: #242220;
+        --border:         #2e2c28;
+        --border-strong:  #3e3c38;
+        --text-primary:   #f0ece4;
+        --text-secondary: #8c8780;
+        --text-hint:      #5a5750;
+        --accent:         #4d7bff;
+        --accent-light:   #1a2340;
+        --danger:         #e05c4a;
+        --success:        #3db876;
+    }
+}
+
+/* ─── Reset ──────────────────────────────────────────────── */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 0 1.25rem;
+    transition: background var(--transition), color var(--transition);
+}
+
+/* ─── App shell ──────────────────────────────────────────── */
+
+.app {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 3rem 0 5rem;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1.75rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--border);
+}
+
+h1 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    line-height: 1;
+    color: var(--text-primary);
+}
+
+h1 em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ─── Theme toggle ───────────────────────────────────────── */
+
+#theme-toggle {
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color var(--transition), color var(--transition), background var(--transition);
+    flex-shrink: 0;
+}
+
+#theme-toggle:hover {
+    border-color: var(--border-strong);
+    color: var(--text-primary);
+}
+
+/* show/hide correct icon based on active theme */
+[data-theme="dark"] #icon-sun,
+:root:not([data-theme="light"]):not([data-theme="dark"]) #icon-sun {
+    display: none;
+}
+
+[data-theme="light"] #icon-moon,
+:root:not([data-theme="light"]):not([data-theme="dark"]) #icon-moon {
+    display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]):not([data-theme="dark"]) #icon-sun { display: none; }
+    :root:not([data-theme="light"]):not([data-theme="dark"]) #icon-moon { display: flex; }
+}
+
+/* ─── Provider pills ─────────────────────────────────────── */
+
+.provider-pills {
+    display: flex;
+    gap: 5px;
+}
+
+.provider-pills label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition);
+    user-select: none;
+    white-space: nowrap;
+}
+
+.provider-pills input[type="radio"] {
+    display: none;
+}
+
+.provider-pills label:has(input:checked) {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-light);
+}
+
+.unofficial-tag {
+    font-size: 9px;
+    opacity: 0.7;
+    font-style: italic;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+}
+
+/* ─── Language bar ───────────────────────────────────────── */
+
+.lang-bar {
+    display: grid;
+    grid-template-columns: 1fr 36px 1fr;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+select {
+    width: 100%;
+    padding: 8px 32px 8px 11px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background-color: var(--surface);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a09b96'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color var(--transition);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+#swap-btn {
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text-secondary);
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition);
+    flex-shrink: 0;
+}
+
+#swap-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: rotate(180deg);
+}
+
+/* ─── Panels ─────────────────────────────────────────────── */
+
+.panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.panel {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: border-color var(--transition);
+}
+
+.panel:focus-within {
+    border-color: var(--border-strong);
+}
+
+.panel-label {
+    padding: 11px 14px 0;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    user-select: none;
+}
+
+textarea {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.75;
+    padding: 10px 14px 12px;
+    resize: none;
+    min-height: 200px;
+    flex: 1;
+    transition: color var(--transition);
+}
+
+textarea:focus {
+    outline: none;
+}
+
+textarea::placeholder {
+    color: var(--text-hint);
+}
+
+.output-panel textarea {
+    color: var(--text-secondary);
+}
+
+.panel-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 14px;
+    border-top: 1px solid var(--border);
+    min-height: 38px;
+}
+
+.char-count {
+    font-size: 11px;
+    color: var(--text-hint);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+}
+
+.char-count.warning {
+    color: var(--danger);
+}
+
+.provider-badge {
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-hint);
+    font-weight: 500;
+}
+
+.icon-btns {
+    display: flex;
+    gap: 5px;
+}
+
+.icon-btn {
+    padding: 4px 11px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+}
+
+.icon-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.icon-btn:not(:disabled):hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.icon-btn.success {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+/* ─── Actions ────────────────────────────────────────────── */
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+#translate-btn {
+    padding: 10px 30px;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-style: italic;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: opacity var(--transition), transform var(--transition);
+    flex-shrink: 0;
+}
+
+#translate-btn:hover:not(:disabled) {
+    opacity: 0.88;
+}
+
+#translate-btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+#translate-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+#status-msg {
+    font-size: 12px;
+    color: var(--text-hint);
+    min-height: 18px;
+    transition: color var(--transition);
+}
+
+#status-msg.error {
+    color: var(--danger);
+}
+
+#status-msg.loading::after {
+    content: '';
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border: 1.5px solid var(--text-hint);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+    h1 { font-size: 1.5rem; }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .panels {
+        grid-template-columns: 1fr;
+    }
+
+    .lang-bar {
+        grid-template-columns: 1fr 36px 1fr;
+    }
+}

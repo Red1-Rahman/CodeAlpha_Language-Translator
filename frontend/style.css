@@ -25,7 +25,7 @@
 /* Dark theme tokens */
 [data-theme="dark"] {
     --bg:             #0D1117;
-    --surface:        #1e1c19;
+    --surface:        #151b22;
     --surface-raised: #242220;
     --border:         #2e2c28;
     --border-strong:  #3e3c38;
@@ -42,7 +42,7 @@
 @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]):not([data-theme="dark"]) {
         --bg:             #0D1117;
-        --surface:        #1e1c19;
+        --surface:        #151b22;
         --surface-raised: #242220;
         --border:         #2e2c28;
         --border-strong:  #3e3c38;
